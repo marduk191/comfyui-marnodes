@@ -59,12 +59,21 @@ class marselect:
                 "rotation": (rotation,),
             },
             "optional": {
-                "batch": 
-                    ("INT", {"default": 1, "min": 1, "max": 10000,}),
-                "Pass_1_steps": 
-                    ("INT", {"default": 25, "min": 1, "max": 10000,}),
-                "Pass_2_steps":
-                    ("INT", {"default": 25, "min": 1, "max": 10000,}),
+                "batch": ("INT", {
+                         "default": 1,
+                         "min": 1, 
+                         "max": 10000,
+                 }),
+                "Pass_1_steps": ("INT", {
+                         "default": 25, 
+                         "min": 1, 
+                         "max": 10000,
+                 }),
+                "Pass_2_steps": ("INT", {
+                         "default": 25, 
+                         "min": 1, 
+                         "max": 10000,
+                 }),
                 "Pass_1_CFG": ("FLOAT",{
                          "default": 6.0,
                          "min": -10.0,
@@ -79,7 +88,7 @@ class marselect:
                         "step": 0.1,
                         "round": 0.1,
                 }),
-                "str_denoise": ("FLOAT", {
+                "Pass_2_denoise": ("FLOAT", {
                         "default": 0.500,
                         "min": -10.000,
                         "max": 100.000,
@@ -110,7 +119,7 @@ class marselect:
         "Pass_2_steps",
         "Pass_1_CFG",
         "Pass_2_CFG",
-        "STRENGTH",
+        "Pass_2_denoise",
         "SCALE",
         "SAMPLER",
         "SCHEDULER",
@@ -118,13 +127,13 @@ class marselect:
     FUNCTION = "marselect"
     CATEGORY = "marduk191/settings"
 
-    def marselect(self, Aspect_Ratio, rotation, batch, Pass_1_steps, Pass_2_steps, Pass_1_CFG, Pass_2_CFG, str_denoise, scale_factor, sampler, scheduler):
+    def marselect(self, Aspect_Ratio, rotation, batch, Pass_1_steps, Pass_2_steps, Pass_1_CFG, Pass_2_CFG, Pass_2_denoise, scale_factor, sampler, scheduler):
         for title, width, height in self.RATIO:
             if title == Aspect_Ratio:
                 if rotation == "portrait":
                     width, height = height, width  # Swap for portrait orientation
-                return (width, height, batch, Pass_1_steps, Pass_2_steps, Pass_1_CFG, Pass_2_CFG, str_denoise, scale_factor, sampler, scheduler)
-        return (None, None, batch, Pass_1_steps, Pass_2_steps, Pass_1_CFG, Pass_2_CFG, str_denoise, scale_factor, sampler, scheduler)  # In case the Aspect Ratio is not found
+                return (width, height, batch, Pass_1_steps, Pass_2_steps, Pass_1_CFG, Pass_2_CFG, Pass_2_denoise, scale_factor, sampler, scheduler)
+        return (None, None, batch, Pass_1_steps, Pass_2_steps, Pass_1_CFG, Pass_2_CFG, Pass_2_denoise, scale_factor, sampler, scheduler)  # In case the Aspect Ratio is not found
 
 NODE_CLASS_MAPPINGS = { 
     "marduk191_workflow_settings": marselect, 
