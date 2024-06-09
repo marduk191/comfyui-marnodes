@@ -4,7 +4,8 @@
 @author:˶marduk191
 @title: marduk191 workflow settings
 @nickname: marduk191 workflow settings
-@project: "",
+@version: "1.0"
+@project: "marnodes",
 @description: A node to set workflow settings.
 """
 
