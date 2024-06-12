@@ -136,9 +136,72 @@ class marselect:
                 return (width, height, batch, Pass_1_steps, Pass_2_steps, Pass_1_CFG, Pass_2_CFG, Pass_2_denoise, scale_factor, sampler, scheduler)
         return (None, None, batch, Pass_1_steps, Pass_2_steps, Pass_1_CFG, Pass_2_CFG, Pass_2_denoise, scale_factor, sampler, scheduler)  # In case the Aspect Ratio is not found
 
+class tswitch:
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "Input": ("INT", {"default": 1, "min": 1, "max": 5}),
+            },
+            "optional": {
+                "text1": ("STRING", {"forceInput": True}),
+                "text2": ("STRING", {"forceInput": True}),
+                "text3": ("STRING", {"forceInput": True}),
+                "text4": ("STRING", {"forceInput": True}),  
+                "text5": ("STRING", {"forceInput": True}),
+            }
+        }
+
+    RETURN_TYPES = ("STRING", )
+    RETURN_NAMES = ("STRING", )
+    FUNCTION = "tswitch"
+    CATEGORY = "marduk191/text"
+
+    def tswitch(self, Input, text1=None, text2=None, text3=None, text4=None, text5=None):
+        if Input == 1:
+            return (text1, )
+        elif Input == 2:
+            return (text2, )
+        elif Input == 3:
+            return (text3, )
+        elif Input == 4:
+            return (text4, )
+        else:
+            return (text5, )  
+            
+class tstring:
+ 
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "text": ("STRING", {"default": '', "multiline": False}),
+            },
+            "optional": {
+                "text_b": ("STRING", {"default": '', "multiline": False}),
+                "text_c": ("STRING", {"default": '', "multiline": False}),
+                "text_d": ("STRING", {"default": '', "multiline": False}),
+                "text_e": ("STRING", {"default": '', "multiline": False}),
+            }
+        }
+    RETURN_TYPES = ("STRING","STRING","STRING","STRING","STRING", )
+    RETURN_NAMES = ("STRING1","STRING2","STRING3","STRING4","STRING5", )
+    FUNCTION = "tstring"
+    CATEGORY = "marduk191/text"
+
+    def tstring(self, text='', text_b='', text_c='', text_d='', text_e=''):
+
+      return (text, text_b, text_c, text_d, text_e)
+          
+            
 NODE_CLASS_MAPPINGS = { 
     "marduk191_workflow_settings": marselect, 
+    "marduk191_5way_text_switch": tswitch, 
+    "marduk191_5_text_string": tstring,
  }
 NODE_DISPLAY_NAME_MAPPINGS = { 
     "marduk191_workflow_settings": "marduk191 workflow settings", 
+    "marduk191_5way_text_switch": "marduk191's 5 way text switch", 
+    "marduk191_5_text_string": "marduk191's 5 text strings",
  }

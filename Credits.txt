@@ -2,3 +2,6 @@ Some credits to repos I have borrowed from:
 
 https://github.com/exdysa/comfyui-selector for the selector base node.
 
+https://github.com/Suzie1/ComfyUI_Comfyroll_CustomNodes For string selector
+https://github.com/WASasquatch/was-node-suite-comfyui For string inputs
+
