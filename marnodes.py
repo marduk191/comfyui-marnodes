@@ -6,7 +6,7 @@
 @nickname: marduk191 workflow settings
 @version: "1.0"
 @project: "marnodes",
-@description: A node to set workflow settings.
+@description: marduk191s nodes.
 """
 
 import comfy.samplers
