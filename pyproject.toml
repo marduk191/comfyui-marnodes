@@ -1,6 +1,6 @@
 [project]
 name = "comfyui-marnodes"
-description = "A node to set workflow settings."
+description = "marduk191s nodes."
 version = "1.0.0"
 license = "LICENSE"
 dependencies = []
@@ -10,6 +10,6 @@ Repository = "https://github.com/marduk191/comfyui-marnodes"
 #  Used by Comfy Registry https://comfyregistry.org
 
 [tool.comfy]
-PublisherId = ""
+PublisherId = "marduk191"
 DisplayName = "comfyui-marnodes"
 Icon = ""
