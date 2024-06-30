@@ -11,8 +11,8 @@
 
 import comfy.samplers
 
+
 class marselect:
-    
     # dimensions sourced from: https://arxiv.org/abs/2307.01952
     # & https://github.com/Stability-AI/generative-models
     RATIO = [
@@ -52,66 +52,67 @@ class marselect:
     def INPUT_TYPES(cls):
         aspect_ratio_titles = [title for title, res1, res2 in cls.RATIO]
         rotation = ("landscape", "portrait")
-        
+
         return {
             "required": {
                 "Aspect_Ratio": (aspect_ratio_titles,
-                    {"default": ("1:1___XL 1024x1024")}),
+                                 {"default": ("1:1___XL 1024x1024")}),
                 "rotation": (rotation,),
             },
             "optional": {
                 "batch": ("INT", {
-                         "default": 1,
-                         "min": 1, 
-                         "max": 10000,
-                 }),
+                    "default": 1,
+                    "min": 1,
+                    "max": 10000,
+                }),
                 "Pass_1_steps": ("INT", {
-                         "default": 25, 
-                         "min": 1, 
-                         "max": 10000,
-                 }),
+                    "default": 25,
+                    "min": 1,
+                    "max": 10000,
+                }),
                 "Pass_2_steps": ("INT", {
-                         "default": 25, 
-                         "min": 1, 
-                         "max": 10000,
-                 }),
-                "Pass_1_CFG": ("FLOAT",{
-                         "default": 6.0,
-                         "min": -10.0,
-                         "max": 100.0,
-                         "step": 0.1,
-                         "round": 0.1,
+                    "default": 25,
+                    "min": 1,
+                    "max": 10000,
+                }),
+                "Pass_1_CFG": ("FLOAT", {
+                    "default": 6.0,
+                    "min": -10.0,
+                    "max": 100.0,
+                    "step": 0.1,
+                    "round": 0.1,
                 }),
                 "Pass_2_CFG": ("FLOAT", {
-                        "default": 6.0,
-                        "min": -10.0,
-                        "max": 100.0,
-                        "step": 0.1,
-                        "round": 0.1,
+                    "default": 6.0,
+                    "min": -10.0,
+                    "max": 100.0,
+                    "step": 0.1,
+                    "round": 0.1,
                 }),
                 "Pass_2_denoise": ("FLOAT", {
-                        "default": 0.500,
-                        "min": -10.000,
-                        "max": 100.000,
-                        "step": 0.001,
-                        "round": 0.01,
-                 }),
+                    "default": 0.500,
+                    "min": -10.000,
+                    "max": 100.000,
+                    "step": 0.001,
+                    "round": 0.01,
+                }),
                 "scale_factor": ("FLOAT", {
-                        "default": 1.5,
-                        "min": 1.0,
-                        "max": 10.0,
-                        "step": 0.1,
-                        "round": 0.1,
+                    "default": 1.5,
+                    "min": 1.0,
+                    "max": 10.0,
+                    "step": 0.1,
+                    "round": 0.1,
                 }),
                 "sampler": (comfy.samplers.KSampler.SAMPLERS,),
                 "scheduler": (comfy.samplers.KSampler.SCHEDULERS,)
             }
-        }   
+        }
+
     RETURN_TYPES = (
         "INT", "INT", "INT", "INT", "INT", "FLOAT",
-        "FLOAT", "FLOAT", "FLOAT",comfy.samplers.KSampler.SAMPLERS,
+        "FLOAT", "FLOAT", "FLOAT", comfy.samplers.KSampler.SAMPLERS,
         comfy.samplers.KSampler.SCHEDULERS,)
-        
+
     RETURN_NAMES = (
         "WIDTH",
         "HEIGHT",
@@ -128,13 +129,21 @@ class marselect:
     FUNCTION = "marselect"
     CATEGORY = "marduk191/settings"
 
-    def marselect(self, Aspect_Ratio, rotation, batch, Pass_1_steps, Pass_2_steps, Pass_1_CFG, Pass_2_CFG, Pass_2_denoise, scale_factor, sampler, scheduler):
+    def marselect(self, Aspect_Ratio, rotation, batch, Pass_1_steps, Pass_2_steps, Pass_1_CFG, Pass_2_CFG,
+                  Pass_2_denoise, scale_factor, sampler, scheduler):
         for title, width, height in self.RATIO:
             if title == Aspect_Ratio:
                 if rotation == "portrait":
                     width, height = height, width  # Swap for portrait orientation
-                return (width, height, batch, Pass_1_steps, Pass_2_steps, Pass_1_CFG, Pass_2_CFG, Pass_2_denoise, scale_factor, sampler, scheduler)
-        return (None, None, batch, Pass_1_steps, Pass_2_steps, Pass_1_CFG, Pass_2_CFG, Pass_2_denoise, scale_factor, sampler, scheduler)  # In case the Aspect Ratio is not found
+                return (
+                    width, height, batch, Pass_1_steps, Pass_2_steps, Pass_1_CFG, Pass_2_CFG, Pass_2_denoise,
+                    scale_factor,
+                    sampler, scheduler)
+        return (
+            None, None, batch, Pass_1_steps, Pass_2_steps, Pass_1_CFG, Pass_2_CFG, Pass_2_denoise, scale_factor,
+            sampler,
+            scheduler)  # In case the Aspect Ratio is not found
+
 
 class tswitch:
 
@@ -148,30 +157,31 @@ class tswitch:
                 "text1": ("STRING", {"forceInput": True}),
                 "text2": ("STRING", {"forceInput": True}),
                 "text3": ("STRING", {"forceInput": True}),
-                "text4": ("STRING", {"forceInput": True}),  
+                "text4": ("STRING", {"forceInput": True}),
                 "text5": ("STRING", {"forceInput": True}),
             }
         }
 
-    RETURN_TYPES = ("STRING", )
-    RETURN_NAMES = ("STRING", )
+    RETURN_TYPES = ("STRING",)
+    RETURN_NAMES = ("STRING",)
     FUNCTION = "tswitch"
     CATEGORY = "marduk191/text"
 
     def tswitch(self, Input, text1=None, text2=None, text3=None, text4=None, text5=None):
         if Input == 1:
-            return (text1, )
+            return (text1,)
         elif Input == 2:
-            return (text2, )
+            return (text2,)
         elif Input == 3:
-            return (text3, )
+            return (text3,)
         elif Input == 4:
-            return (text4, )
+            return (text4,)
         else:
-            return (text5, )  
-            
+            return (text5,)
+
+
 class tstring:
- 
+
     @classmethod
     def INPUT_TYPES(cls):
         return {
@@ -185,23 +195,23 @@ class tstring:
                 "text_e": ("STRING", {"default": '', "multiline": False}),
             }
         }
-    RETURN_TYPES = ("STRING","STRING","STRING","STRING","STRING", )
-    RETURN_NAMES = ("STRING1","STRING2","STRING3","STRING4","STRING5", )
+
+    RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING",)
+    RETURN_NAMES = ("STRING1", "STRING2", "STRING3", "STRING4", "STRING5",)
     FUNCTION = "tstring"
     CATEGORY = "marduk191/text"
 
     def tstring(self, text='', text_b='', text_c='', text_d='', text_e=''):
+        return (text, text_b, text_c, text_d, text_e)
 
-      return (text, text_b, text_c, text_d, text_e)
-          
-            
-NODE_CLASS_MAPPINGS = { 
-    "marduk191_workflow_settings": marselect, 
-    "marduk191_5way_text_switch": tswitch, 
+
+NODE_CLASS_MAPPINGS = {
+    "marduk191_workflow_settings": marselect,
+    "marduk191_5way_text_switch": tswitch,
     "marduk191_5_text_string": tstring,
- }
-NODE_DISPLAY_NAME_MAPPINGS = { 
-    "marduk191_workflow_settings": "marduk191 workflow settings", 
-    "marduk191_5way_text_switch": "marduk191's 5 way text switch", 
+}
+NODE_DISPLAY_NAME_MAPPINGS = {
+    "marduk191_workflow_settings": "marduk191 workflow settings",
+    "marduk191_5way_text_switch": "marduk191's 5 way text switch",
     "marduk191_5_text_string": "marduk191's 5 text strings",
- }
+}
