@@ -1,7 +1,7 @@
 [project]
 name = "comfyui-marnodes"
 description = "marduk191s nodes."
-version = "1.0.4"
+version = "1.0.5"
 license = "LICENSE"
 dependencies = []
 
@@ -12,4 +12,4 @@ Repository = "https://github.com/marduk191/comfyui-marnodes"
 [tool.comfy]
 PublisherId = "marduk191"
 DisplayName = "comfyui-marnodes"
-Icon = "./icon/RA.png"
+Icon = "https://raw.githubusercontent.com/marduk191/comfyui-marnodes/main/icon/RA.png"
