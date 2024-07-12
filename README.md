@@ -9,6 +9,9 @@ Screenshot:
 String nodes:
 ![image](https://github.com/marduk191/comfyui-marnodes/assets/1769686/a4a5895a-7251-404e-99ca-96e13a0a4367)
 
+Material Node Colors:
+![image](https://github.com/user-attachments/assets/36151ec1-9889-4249-8900-e125bec5574c)
+
 
 Worflow:
 ![marduk191-beginner_flow_v1](https://github.com/marduk191/comfyui-marnodes/assets/1769686/1ca8faa9-c223-4180-b279-55f773da9938)
