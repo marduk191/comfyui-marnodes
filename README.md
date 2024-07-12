@@ -3,7 +3,7 @@ my simple little random nodes for ComfyUI
 
 Mostly a placeholder with some basic custom qol stuff.
 
-Screenshot:
+Workflow Settings:
 ![image](https://github.com/marduk191/comfyui-marnodes/assets/1769686/a9bb6359-0b60-4eac-a144-07f4666e16a8)
 
 String nodes:
