@@ -10,7 +10,8 @@
 """
 
 import comfy.samplers
-
+import random
+import torch
 
 class marselect:
     # dimensions sourced from: https://arxiv.org/abs/2307.01952
@@ -203,15 +204,57 @@ class tstring:
 
     def tstring(self, text='', text_b='', text_c='', text_d='', text_e=''):
         return (text, text_b, text_c, text_d, text_e)
+        
+class RandomLatentSize:
+    def __init__(self):
+        pass
+
+    @classmethod
+    def INPUT_TYPES(s):
+        return {
+            "required":{
+                "batch_size": ("INT", {"default": 1, "min": 1, "max": 4096}),
+            },}
+    RETURN_TYPES = ("LATENT","INT","INT",)
+    RETURN_NAMES = ("LATENT","width","height",)
+    OUTPUT_NODE = True
+    FUNCTION = "randres"
+    CATEGORY = "marduk191/latent"
+
+    def IS_CHANGED(s):
+        random.seed()
+
+    def randres(self,batch_size):
+        resolutions = [640,768,832,896,1024,1152,1216,1344,1536]
+
+        res_list = []
+
+        for x in resolutions:
+            for y in resolutions:
+                a = (x,y)
+                b = (y,x)
+                if not a in res_list:
+                    res_list.append(a)
+                if not b in res_list:
+                    res_list.append(b)
+
+
+        rand_res = random.choice(res_list)  
+        latent = torch.zeros([batch_size, 4, rand_res[0]//8, rand_res[1]//8])
+
+
+        return({"samples":latent},rand_res[0],rand_res[1],)
 
 
 NODE_CLASS_MAPPINGS = {
     "marduk191_workflow_settings": marselect,
     "marduk191_5way_text_switch": tswitch,
     "marduk191_5_text_string": tstring,
+    "marduk191_s_random_latent": RandomLatentSize,
 }
 NODE_DISPLAY_NAME_MAPPINGS = {
     "marduk191_workflow_settings": "marduk191 workflow settings",
     "marduk191_5way_text_switch": "marduk191's 5 way text switch",
     "marduk191_5_text_string": "marduk191's 5 text strings",
+    "marduk191_s_random_latent": "marduk191's random latent size"
 }

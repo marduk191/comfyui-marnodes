@@ -4,5 +4,5 @@ https://github.com/exdysa/comfyui-selector for the selector base node.
 
 https://github.com/Suzie1/ComfyUI_Comfyroll_CustomNodes For string selector
 https://github.com/WASasquatch/was-node-suite-comfyui For string inputs
-
+https://github.com/chibiace/ComfyUI-Chibi-Nodes for random latent size
 @masslevel, @twri for initial work on the color new colors
