@@ -12,6 +12,7 @@
 import comfy.samplers
 import random
 import torch
+import math
 
 class marselect:
     # dimensions sourced from: https://arxiv.org/abs/2307.01952
@@ -56,8 +57,9 @@ class marselect:
 
         return {
             "required": {
-                "Aspect_Ratio": (aspect_ratio_titles,
-                                 {"default": ("1:1___XL 1024x1024")}),
+                "mode":(["Random","Fixed"],),
+                "fixed_seed":("INT",{"default": 8008135, "min": 0, "max": 0xffffffffffffffff, "step": 1}),
+                "Aspect_Ratio": (aspect_ratio_titles,{"default": ("1:1___XL 1024x1024")}),
                 "rotation": (rotation,),
             },
             "optional": {
@@ -110,11 +112,13 @@ class marselect:
         }
 
     RETURN_TYPES = (
-        "INT", "INT", "INT", "INT", "INT", "FLOAT",
+        "INT", "STRING", "INT", "INT", "INT", "INT", "INT", "FLOAT",
         "FLOAT", "FLOAT", "FLOAT", comfy.samplers.KSampler.SAMPLERS,
         comfy.samplers.KSampler.SCHEDULERS,)
 
     RETURN_NAMES = (
+        "SEED",
+        "TEXT",
         "WIDTH",
         "HEIGHT",
         "BATCH_SIZE",
@@ -130,22 +134,29 @@ class marselect:
     FUNCTION = "marselect"
     CATEGORY = "marduk191/settings"
 
-    def marselect(self, Aspect_Ratio, rotation, batch, Pass_1_steps, Pass_2_steps, Pass_1_CFG, Pass_2_CFG,
+    def marselect(self, mode, fixed_seed, Aspect_Ratio, rotation, batch, Pass_1_steps, Pass_2_steps, Pass_1_CFG, Pass_2_CFG,
                   Pass_2_denoise, scale_factor, sampler, scheduler):
         for title, width, height in self.RATIO:
+            if mode == "Random":
+                fixed_seed = math.floor(random.random() * 10000000000000000)
+            if mode == "Fixed":
+                fixed_seed = fixed_seed
             if title == Aspect_Ratio:
                 if rotation == "portrait":
                     width, height = height, width  # Swap for portrait orientation
                 return (
-                    width, height, batch, Pass_1_steps, Pass_2_steps, Pass_1_CFG, Pass_2_CFG, Pass_2_denoise,
+                    fixed_seed, str(fixed_seed), width, height, batch, Pass_1_steps, Pass_2_steps, Pass_1_CFG, Pass_2_CFG, Pass_2_denoise,
                     scale_factor,
                     sampler, scheduler)
         return (
-            None, None, batch, Pass_1_steps, Pass_2_steps, Pass_1_CFG, Pass_2_CFG, Pass_2_denoise, scale_factor,
+            mode, fixed_seed, None, None, batch, Pass_1_steps, Pass_2_steps, Pass_1_CFG, Pass_2_CFG, Pass_2_denoise, scale_factor,
             sampler,
             scheduler)  # In case the Aspect Ratio is not found
+   
+    def IS_CHANGED(s,fixed_seed):
+        seed = random.seed()
 
-
+    
 class tswitch:
 
     @classmethod
