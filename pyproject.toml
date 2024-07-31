@@ -2,7 +2,7 @@
 name = "comfyui-marnodes"
 description = "marduk191s nodes."
 version = "1.0.6"
-license = "LICENSE"
+license = { file = "LICENSE" }
 dependencies = []
 
 [project.urls]
