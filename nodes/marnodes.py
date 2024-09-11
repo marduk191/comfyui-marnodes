@@ -163,8 +163,7 @@ class marselect:
             sampler,
             scheduler)  # In case the Aspect Ratio is not found
    
-    def IS_CHANGED(s,fixed_seed):
-        seed = random.seed()
+
 
     
 class tswitch:
