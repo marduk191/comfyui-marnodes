@@ -9,6 +9,7 @@ import folder_paths
 
 node_list = [
     "marnodes",
+    "img2dev",
 ]
 
 NODE_CLASS_MAPPINGS = {}
